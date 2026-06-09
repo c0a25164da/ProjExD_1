@@ -26,7 +26,7 @@ def main():
 
         Key_lst = pg.key.get_pressed()
         if not any(Key_lst):
-            dx -= 1
+            img_3_trans_rct.move_ip((-1, 0))
         if Key_lst[pg.K_UP]:
             dy -= 1
         if Key_lst[pg.K_DOWN]:
