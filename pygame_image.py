@@ -13,19 +13,29 @@ def main():
     bg_img_trans = pg.transform.flip(bg_img, True, False)
     img_3 = pg.image.load("fig/3.png")
     img_3_trans = pg.transform.flip(img_3, True, False)
-    tmr = x = 0
+    img_3_trans_rct = img_3_trans.get_rect()
+    img_3_trans_rct.center = 300, 200
+    tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
-        screen.blit(bg_img, [x, 0])
-        x -= 1
+        Key_lst = pg.key.get_pressed()
+        if Key_lst[pg.K_UP]:
+            img_3_trans_rct.move_ip((0, -1))
+        elif Key_lst[pg.K_DOWN]:
+            img_3_trans_rct.move_ip((0, 1))
+        elif Key_lst[pg.K_LEFT]:
+            img_3_trans_rct.move_ip((-1, 0))
+        elif Key_lst[pg.K_RIGHT]:
+            img_3_trans_rct.move_ip((1, 0))
+
+        x = -(tmr % 3200)
         tmr += 1
+        screen.blit(bg_img, [x, 0])
         screen.blit(bg_img_trans, [x + 1600, 0])
         screen.blit(bg_img, [x + 3200, 0])
-        if x <= -3199:
-            x = 0
-        screen.blit(img_3_trans, [300,200])
+        screen.blit(img_3_trans, img_3_trans_rct)
         pg.display.update()
         clock.tick(200)
 
